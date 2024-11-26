@@ -1,5 +1,5 @@
 
-export default function Home() {
+export default function Home()  {
   return (
     <>
       <main className="text-2xl font-semibold flex h-lvh w-full justify-center items-center">

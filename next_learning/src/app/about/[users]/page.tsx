@@ -1,6 +1,7 @@
-import React from 'react';
-import { usersData } from '../page'; // Ensure usersData is correctly typed
-import Link from 'next/link';
+import React from "react";
+import { usersData } from "../page"; // Ensure usersData is correctly typed
+import Link from "next/link";
+import { notFound } from "next/navigation";
 
 // 1. Define the User interface
 interface User {
@@ -27,27 +28,36 @@ const AboutUsers: React.FC<AboutUsersProps> = ({ params }) => {
 
   // Convert `users` to a number if `id` is numeric
   const userId = Number(users);
-
+  if (userId > 3) {
+    notFound(); // if the user link is not found it use { notfound() } which inherits from relative not found page
+  }
   // Find the specific user based on the ID
-  const specificUser: User | undefined = typedUsersData.find((user) => user.id === userId);
+  const specificUser: User | undefined = typedUsersData.find(
+    (user) => user.id === userId
+  );
 
   return (
     <div className="w-full h-lvh flex flex-col justify-center items-center">
-      <p className='mb-10 text-4xl font-bold '>Selected User ID: {users}</p>
+      <p className="mb-10 text-4xl font-bold ">Selected User ID: {users}</p>
       {specificUser ? (
         <div className="px-8 py-4 border rounded-md shadow-md mb-4">
-          <p><strong>Name:</strong> {specificUser.name}</p>
-          <p><strong>Email:</strong> {specificUser.email}</p>
-          <p><strong>Age:</strong> {specificUser.age}</p>
+          <p>
+            <strong>Name:</strong> {specificUser.name}
+          </p>
+          <p>
+            <strong>Email:</strong> {specificUser.email}
+          </p>
+          <p>
+            <strong>Age:</strong> {specificUser.age}
+          </p>
         </div>
       ) : (
         <p className="text-red-500">No user found with the given ID.</p>
       )}
 
-<button className='font-bold capitalize    bg-blue-800 px-2 py-1 '>
-
-      <Link href="/about" > go to about page</Link>
-</button>
+      <button className="font-bold capitalize    bg-blue-800 px-2 py-1 ">
+        <Link href="/about"> go to about page</Link>
+      </button>
     </div>
   );
 };
